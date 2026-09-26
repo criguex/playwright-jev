@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { configureJev } from '../src/config.js';
+import { resetJevState } from '../src/engine.js';
 import { setTestInfoProvider, summarize, type AssertionRecord } from '../src/evidence.js';
 import {
   toBeScored,
@@ -333,6 +334,19 @@ describe('web-first receivers', () => {
       received: 'Payment confirmed',
     });
     expect(mock.requests).toHaveLength(2);
+  });
+
+  it('keeps polling past states that have no fixture in replay mode', async () => {
+    const dir = tempDir();
+    configureJev({ mode: 'record', fixturesDir: dir });
+    await toMean.call(pos, 'Payment confirmed', 'payment confirmed');
+    info.attachments.length = 0;
+    resetJevState();
+    configureJev({ mode: 'replay', baseUrl: undefined });
+    const locator = fakeLocator([['Processing…'], ['Payment confirmed']]);
+    const result = await toMean.call({ isNot: false, timeout: 2000 }, locator, 'payment confirmed');
+    expect(result.pass).toBe(true);
+    expect(records()[0]?.questions[0]?.source).toBe('fixture');
   });
 
   it('stops polling at the timeout', async () => {

@@ -63,7 +63,7 @@ function defaults(env: NodeJS.ProcessEnv): JevConfig {
     requestTimeoutMs: 15_000,
     maxRetries: 2,
     maxRetryDelayMs: 8_000,
-    batchWindowMs: 5,
+    batchWindowMs: 20,
     maxQuestionsPerRequest: 32,
     maxStateChars: 60_000,
     redact: [],

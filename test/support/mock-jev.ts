@@ -46,7 +46,8 @@ export function lexicalAnswer(request: MockRequest): Record<string, unknown> {
     if (question.type === 'noul') {
       const terms = words(claimOf(question.instructions));
       const hits = terms.filter((t) => lower.includes(t)).length;
-      let p = terms.length === 0 ? 0.5 : hits === terms.length ? 0.96 : hits === 0 ? 0.03 : 0.5;
+      const ratio = terms.length === 0 ? 0.75 : hits / terms.length;
+      let p = ratio === 1 ? 0.96 : ratio <= 0.5 ? 0.03 : 0.5;
       if (lower.includes('[[ambiguous]]')) p = 0.55;
       answers[id] = { type: 'noul', noul: p };
     } else if (question.type === 'choice') {
@@ -98,6 +99,20 @@ export async function startMockJev(): Promise<MockJev> {
     let raw = '';
     req.on('data', (chunk) => (raw += chunk));
     req.on('end', () => {
+      if (req.method === 'GET') {
+        const marker = new URL(req.url ?? '/', 'http://x').searchParams.get('contains') ?? '';
+        const matching = state.requests.filter((r) =>
+          JSON.stringify(r.body.state).includes(marker),
+        );
+        res.writeHead(200, { 'content-type': 'application/json' });
+        res.end(
+          JSON.stringify({
+            requests: matching.length,
+            questions: matching.map((r) => Object.keys(r.body.questions).length),
+          }),
+        );
+        return;
+      }
       const request: MockRequest = { headers: req.headers, body: JSON.parse(raw || '{}') };
       const index = state.requests.push(request) - 1;
       const content = contentOf(request.body.state ?? '').toLowerCase();

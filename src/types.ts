@@ -121,7 +121,7 @@ export interface JevConfig {
   maxRetries: number;
   /** Upper bound for one backoff wait (also caps `retry-after`). Default 8000. */
   maxRetryDelayMs: number;
-  /** Time window in ms during which concurrent questions on the same state are coalesced. Default 5. */
+  /** Time window in ms during which concurrent questions on the same state are coalesced. Default 20. */
   batchWindowMs: number;
   /** Maximum questions sent in one request. Default 32. */
   maxQuestionsPerRequest: number;

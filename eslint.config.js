@@ -16,6 +16,11 @@ export default tseslint.config(
   },
   {
     files: ['scripts/**', 'test/**', 'tests/**', 'examples/**'],
-    rules: { 'no-console': 'off', '@typescript-eslint/no-non-null-assertion': 'off' },
+    languageOptions: { globals: { process: 'readonly', console: 'readonly' } },
+    rules: {
+      'no-console': 'off',
+      'no-empty-pattern': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
   },
 );

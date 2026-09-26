@@ -13,6 +13,8 @@ export interface Decision {
   latencyMs: number;
   inputTokens: number;
   costUsd: number;
+  /** True when the only problem is a missing fixture (the content may still change). */
+  missingFixture?: boolean;
 }
 
 /** Aggregate counters for the current process. */
@@ -182,23 +184,25 @@ function decideOne(state: JsonValue, question: JevQuestion, config: JevConfig): 
       return Promise.resolve(hit(key, fixture.model, fixture.answer, 'fixture'));
     }
     if (mode === 'replay') {
-      return Promise.resolve(
-        unverified(
+      return Promise.resolve({
+        ...unverified(
           key,
           model,
           `no fixture ${key}.json in ${config.fixturesDir} (replay mode); record it with JEV_MODE=record`,
         ),
-      );
+        missingFixture: true,
+      });
     }
   }
   if (!config.apiKey && !config.gatewayApiKey && !config.baseUrl) {
-    return Promise.resolve(
-      unverified(
+    return Promise.resolve({
+      ...unverified(
         key,
         model,
         'no Jev key (TYPESAFE_API_KEY or AI_GATEWAY_API_KEY) and no recorded fixture',
       ),
-    );
+      missingFixture: true,
+    });
   }
   const running = inflight.get(key);
   if (running) return running;

@@ -18,7 +18,11 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "playwright-jev": ["./src/index.ts"],
+      "playwright-jev/reporter": ["./src/reporter.ts"]
+    }
   },
   "include": ["src", "test", "tests", "examples", "scripts", "*.ts"]
 }

@@ -65,8 +65,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:integration": "playwright test -c tests/playwright.config.ts",
-    "test:examples": "playwright test -c examples/playwright.config.ts",
-    "test:live": "JEV_LIVE=1 vitest run test/live",
+    "test:examples": "JEV_MODE=replay playwright test -c examples/playwright.config.ts",
+    "test:live": "JEV_LIVE=1 vitest run test/live --coverage.enabled=false",
     "record:examples": "JEV_MODE=record playwright test -c examples/playwright.config.ts",
     "docs": "typedoc",
     "check:pack": "node scripts/check-pack.mjs",
@@ -85,7 +85,7 @@
     "prettier": "^3.9.9",
     "tsup": "^8.5.1",
     "typedoc": "^0.28.20",
-    "typescript": "^6.0.3",
+    "typescript": "~5.9",
     "typescript-eslint": "^8.70.1",
     "vitest": "^5.0.2"
   }

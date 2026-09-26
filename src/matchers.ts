@@ -206,7 +206,8 @@ async function evaluate(
     const byId = await decide(state, spec.questions, config);
     decisions = Object.values(byId);
     judgement = spec.judge(byId, config);
-    if (judgement.truth === desired || judgement.truth === 'unverified' || !shouldPoll) break;
+    if (judgement.truth === desired || !shouldPoll) break;
+    if (judgement.truth === 'unverified' && !decisions.some((d) => d.missingFixture)) break;
     const wait = POLL_INTERVALS[Math.min(attempts - 1, POLL_INTERVALS.length - 1)] as number;
     if (Date.now() + wait >= deadline) break;
     await sleep(wait);

@@ -228,7 +228,7 @@ export function createJevClient(options: JevClientOptions = {}): JevClient {
       if (!response.ok) {
         const retryAfter = retryAfterMs(response.headers.get('retry-after'));
         const error = new JevError(
-          `Jev ${response.status} ${response.statusText} via ${route.name}: ${scrub(text, route.key) || 'no body'}`,
+          `Jev ${response.status}${response.statusText ? ` ${response.statusText}` : ''} via ${route.name}: ${scrub(text, route.key) || 'no body'}`,
           {
             status: response.status,
             body: scrub(text, route.key),
