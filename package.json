@@ -1,0 +1,92 @@
+{
+  "name": "playwright-jev",
+  "version": "0.1.0",
+  "description": "Semantic assertions for Playwright Test powered by Jev: calibrated yes/no, choice and rubric matchers with record/replay, batching and a reporter.",
+  "keywords": [
+    "playwright",
+    "playwright-test",
+    "jev",
+    "typesafe",
+    "semantic-assertions",
+    "matchers",
+    "testing",
+    "qa"
+  ],
+  "license": "MIT",
+  "author": "Cristian Guerra <criguex@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/criguex/playwright-jev.git"
+  },
+  "homepage": "https://github.com/criguex/playwright-jev#readme",
+  "bugs": "https://github.com/criguex/playwright-jev/issues",
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./reporter": {
+      "import": {
+        "types": "./dist/reporter.d.ts",
+        "default": "./dist/reporter.js"
+      },
+      "require": {
+        "types": "./dist/reporter.d.cts",
+        "default": "./dist/reporter.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:integration": "playwright test -c tests/playwright.config.ts",
+    "test:examples": "playwright test -c examples/playwright.config.ts",
+    "test:live": "JEV_LIVE=1 vitest run test/live",
+    "record:examples": "JEV_MODE=record playwright test -c examples/playwright.config.ts",
+    "docs": "typedoc",
+    "check:pack": "node scripts/check-pack.mjs",
+    "verify": "npm run typecheck && npm run lint && npm run test:coverage && npm run build && npm run test:integration && npm run test:examples && npm run docs && npm run check:pack",
+    "prepublishOnly": "npm run verify"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.45.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3",
+    "@vitest/coverage-v8": "^5.0.2",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9",
+    "tsup": "^8.5.1",
+    "typedoc": "^0.28.20",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vitest": "^5.0.2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "entryPoints": ["src/index.ts", "src/reporter.ts"],
+  "out": "docs/api",
+  "name": "playwright-jev",
+  "readme": "README.md",
+  "treatWarningsAsErrors": true,
+  "excludePrivate": true,
+  "excludeInternal": true
+}
