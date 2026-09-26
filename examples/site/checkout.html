@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo checkout</title>
+  </head>
+  <body>
+    <main>
+      <h1>Checkout</h1>
+      <p id="summary">
+        Order A-1001: 2 items, total $25.00. Delivery estimated in 3 business days.
+      </p>
+      <label>Card <input id="card" value="4111 1111 1111 1111" /></label>
+      <label>E-mail <input id="email" value="ana@example.com" /></label>
+      <button id="pay">Pay now</button>
+      <div role="alert" id="status" hidden></div>
+      <section id="help">
+        <h2>Need help?</h2>
+        <p>Contact support any time from the Help menu. Refunds are processed in 5 days.</p>
+      </section>
+    </main>
+    <script>
+      document.getElementById('pay').addEventListener('click', () => {
+        const status = document.getElementById('status');
+        const card = document.getElementById('card').value.replace(/\s/g, '');
+        const email = document.getElementById('email').value;
+        status.hidden = false;
+        status.textContent = 'Processing your payment…';
+        setTimeout(() => {
+          status.textContent =
+            card === '4000000000000002'
+              ? 'Card declined. Please try another payment method.'
+              : `Payment successful. Your order A-1001 is confirmed. A receipt was sent to ${email}.`;
+        }, 600);
+      });
+    </script>
+  </body>
+</html>
