@@ -5,5 +5,6 @@
   "readme": "README.md",
   "treatWarningsAsErrors": true,
   "excludePrivate": true,
-  "excludeInternal": true
+  "excludeInternal": true,
+  "sourceLinkTemplate": "https://github.com/criguex/playwright-jev/blob/{gitRevision}/{path}#L{line}"
 }
