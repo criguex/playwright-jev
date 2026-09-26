@@ -12,9 +12,6 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  JEV_MODE: replay
-
 jobs:
   quality:
     name: Lint, types, unit, build, pack, docs

@@ -5,6 +5,7 @@ export default async function globalSetup() {
   process.env.JEV_BASE_URL = mock.url;
   process.env.TYPESAFE_API_KEY = 'integration-key';
   delete process.env.AI_GATEWAY_API_KEY;
+  delete process.env.JEV_MODE;
   return async () => {
     await mock.close();
   };
