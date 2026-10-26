@@ -4,6 +4,34 @@
 
 ![playwright-jev: semantic assertions for Playwright Test powered by Jev, with three-valued verdicts, fail-closed when unverified, recorded once and replayed in CI](docs/assets/banner.svg)
 
+## Explained like you're 8
+
+When a shop website says "Payment successful. Your order is confirmed.", a normal test checks whether some exact words are on the screen. If someone rewrites the sentence, that test breaks even though the page is fine. This project lets a test ask what the page **means**: "does it say the payment was confirmed?". Jev answers with how sure it is. Only a clear yes passes; if Jev is in the middle or doesn't answer, the test fails on purpose, so nothing slips by. The answers can be saved, so the tests run again the same way without internet.
+
+**A real example from this repo**
+
+- **Imagine** a checkout page that shows: "Payment successful. Your order A-1001 is confirmed. A receipt was sent to ana@example.com."
+- **What happens:** the test wants to know if "the payment was confirmed". Those exact words are not on the page, so a word-for-word check would fail, even though the page is right.
+- **What the project does:** Jev reads the meaning and says **98%** yes. For "the payment failed" it says **1%**, which is what we want. Both checks pass.
+- **What we gain:** tests that don't break when the wording changes, and that still fail when the page really says something else. In CI the 10 meaning checks pass from saved answers, with no internet and no key.
+
+![Animated story: a checkout message, the exact-words check fails, Jev reads the meaning (98% yes, 1% failed), unsure answers fail on purpose, saved answers let tests run offline](docs/assets/explained.gif)
+
+[MP4 version](docs/assets/explained.mp4) · source: [`docs/scenes/explained.html`](docs/scenes/explained.html)
+
+**Hard words**
+
+| Word | What it means |
+| --- | --- |
+| Playwright | A tool that drives a web browser by itself, like a robot clicking for you |
+| Assertion | The "is this true?" line inside a test |
+| Jev | A fast AI that doesn't write sentences: it answers yes or no and says how sure it is |
+| Threshold | How sure Jev must be (80% by default) for a yes to count |
+| Fixture | A saved answer from Jev, so the test can run again without asking |
+| CI | A robot that runs the tests every time someone hands in a change |
+
+---
+
 Semantic assertions for [Playwright Test](https://playwright.dev), powered by
 [Jev](https://docs.typesafe.ai) from TypeSafe AI.
 

@@ -4,6 +4,34 @@
 
 ![playwright-jev: aserciones semánticas para Playwright Test con Jev, veredictos de tres valores, falla cerrada cuando no se puede verificar, grabado una vez y reproducido en CI](docs/assets/banner.svg)
 
+## Explicado para un niño de 8 años
+
+Cuando la página de una tienda dice "Payment successful. Your order is confirmed." (pago exitoso, tu pedido está confirmado), una prueba normal revisa si ciertas palabras exactas están en la pantalla. Si alguien reescribe la frase, esa prueba se rompe aunque la página esté bien. Este proyecto deja que la prueba pregunte qué **quiere decir** la página: "¿dice que el pago se confirmó?". Jev responde qué tan seguro está. Solo pasa un sí claro; si Jev queda en la mitad o no responde, la prueba falla a propósito, para que nada se cuele. Las respuestas se pueden guardar, así las pruebas vuelven a correr igual sin internet.
+
+**Un ejemplo real de este repo**
+
+- **Imagina** una página de pago que muestra: "Payment successful. Your order A-1001 is confirmed. A receipt was sent to ana@example.com."
+- **Qué pasa:** la prueba quiere saber si "the payment was confirmed" (el pago fue confirmado). Esas palabras exactas no están en la página, así que una revisión palabra por palabra fallaría, aunque la página está bien.
+- **Qué hace el proyecto:** Jev lee el sentido y dice **98%** que sí. Para "the payment failed" (el pago falló) dice **1%**, que es justo lo que queremos. Las dos revisiones pasan.
+- **Qué ganamos:** pruebas que no se rompen cuando cambia la redacción y que igual fallan cuando la página de verdad dice otra cosa. En el CI las 10 revisiones de sentido pasan con respuestas guardadas, sin internet y sin llave.
+
+![Historia animada: un mensaje de pago, la revisión de palabras exactas falla, Jev lee el sentido (98% sí, 1% falló), las dudas fallan a propósito y las respuestas guardadas dejan correr las pruebas sin internet](docs/assets/explained.es.gif)
+
+[Versión MP4](docs/assets/explained.es.mp4) · fuente: [`docs/scenes/explained.html`](docs/scenes/explained.html) (con `?lang=es`)
+
+**Palabras difíciles**
+
+| Palabra | Qué quiere decir |
+| --- | --- |
+| Playwright | Una herramienta que maneja un navegador sola, como un robot que hace clic por ti |
+| Aserción | La línea de "¿esto es verdad?" dentro de una prueba |
+| Jev | Una IA rápida que no escribe frases: responde sí o no y dice qué tan segura está |
+| Umbral | Qué tan seguro tiene que estar Jev (80% por defecto) para que un sí cuente |
+| Fixture | Una respuesta de Jev guardada, para que la prueba vuelva a correr sin preguntar |
+| CI | Un robot que corre las pruebas cada vez que alguien entrega un cambio |
+
+---
+
 Aserciones semánticas para [Playwright Test](https://playwright.dev), con
 [Jev](https://docs.typesafe.ai) de TypeSafe AI. En lugar de comparar textos exactos,
 verifica lo que la pantalla *significa*.
