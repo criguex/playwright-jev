@@ -1,5 +1,9 @@
 # playwright-jev
 
+[Leer en español](README.es.md)
+
+![playwright-jev: semantic assertions for Playwright Test powered by Jev, with three-valued verdicts, fail-closed when unverified, recorded once and replayed in CI](docs/assets/banner.svg)
+
 Semantic assertions for [Playwright Test](https://playwright.dev), powered by
 [Jev](https://docs.typesafe.ai) from TypeSafe AI.
 
@@ -45,6 +49,14 @@ strict about uncertainty. This one is:
 | [jev-playwright](https://www.npmjs.com/package/jev-playwright) | Picks which Playwright tests to run for a diff, not assertions |
 | playjev, jev-browser | Browser automation agents |
 | **playwright-jev** | Playwright Test matchers: `Locator`/`Page` receivers with web-first retry, noul/choice/score matchers, ambiguity band, Playwright annotations, attachments and reporter |
+
+## How it works
+
+![How it works: matcher, receiver text, redaction and key, answer source by JEV_MODE, three-valued verdict, and evidence on every assertion](docs/assets/how-it-works.svg)
+
+![Animation: the checkout example from this repo replayed offline, with the real output of npm run test:examples](docs/assets/how-it-works.gif)
+
+The animation follows the checkout example in [`examples/checkout.spec.ts`](examples/checkout.spec.ts) and shows the real output of `npm run test:examples` (replay mode, no key) ([MP4 version](docs/assets/how-it-works.mp4)). Source: [`docs/scenes/how-it-works.html`](docs/scenes/how-it-works.html), rendered with [`docs/scenes/export.sh`](docs/scenes/export.sh).
 
 ## Quick start
 
@@ -268,6 +280,8 @@ been run.
 
 ## Español
 
+Versión completa en español: [README.es.md](README.es.md).
+
 **playwright-jev** agrega aserciones semánticas a Playwright Test usando Jev (TypeSafe AI):
 en lugar de comparar textos exactos, verifica lo que la pantalla *significa*.
 
@@ -292,3 +306,7 @@ Funciona mejor en inglés.
 ## License
 
 MIT © Cristian Guerra
+
+## Author
+
+Cristian Guerra · QA · Medellín · [github.com/criguex](https://github.com/criguex)

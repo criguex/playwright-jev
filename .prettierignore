@@ -8,3 +8,4 @@ package-lock.json
 examples/.jev
 tests/.jev
 *.md
+docs/scenes

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="540" viewBox="0 0 1280 540" role="img" aria-label="How it works">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#55DFBD" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <clipPath id="r"><rect width="1280" height="540" rx="20"/></clipPath>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55DFBD"/></marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FB8176"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FFC56E"/></marker>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="1280" height="540" fill="#071B2B"/>
+    <rect width="1280" height="540" fill="url(#grid)"/>
+    <rect x="0" y="0" width="8" height="540" fill="#55DFBD"/>
+  </g>
+
+  <text x="48" y="58" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#F4F7F5">How it works</text>
+  <text x="48" y="86" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" fill="#ABC0C8">An assertion becomes a typed question. Only a clear yes passes; doubt and missing answers fail by default.</text>
+  <text x="1240" y="518" text-anchor="end" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#55DFBD">Cristian Guerra · QA · Medellín</text>
+  <rect x="48" y="110" width="250" height="100" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="64" y="138" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Matcher</text>
+  <text x="64" y="160" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">toMean · toMeanAll · toMeanAny</text>
+  <text x="64" y="179" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">toChoose · toBeScored</text>
+  <text x="64" y="198" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">.not and expect.soft work too</text>
+  <rect x="340" y="110" width="240" height="100" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="356" y="138" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Receiver → state</text>
+  <text x="356" y="160" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">Locator: innerText, web-first</text>
+  <text x="356" y="179" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">retry until it holds or times out</text>
+  <text x="356" y="198" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">Page · APIResponse · values</text>
+  <rect x="622" y="110" width="240" height="100" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="638" y="138" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Redact + key</text>
+  <text x="638" y="160" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">redact hook: emails, cards…</text>
+  <text x="638" y="179" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">key = sha256(model,</text>
+  <text x="638" y="198" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">redacted state, question)</text>
+  <rect x="904" y="100" width="328" height="120" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="920" y="128" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Answer source (JEV_MODE)</text>
+  <text x="920" y="150" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">replay: fixture only</text>
+  <text x="920" y="169" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">auto: fixture, else live with a key</text>
+  <text x="920" y="188" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">record: live + write the fixture</text>
+  <text x="920" y="207" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">live: batched, ≤ 32 questions/request</text>
+  <rect x="622" y="270" width="240" height="120" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="638" y="298" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Three-valued verdict (noul)</text>
+  <text x="638" y="320" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">yes: p ≥ threshold (0.8)</text>
+  <text x="638" y="339" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">no: p ≤ 1 − threshold</text>
+  <text x="638" y="358" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">ambiguous: in between</text>
+  <text x="638" y="377" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">unverified: no answer at all</text>
+  <rect x="904" y="256" width="328" height="56" rx="12" fill="#0D2638" stroke="#55DFBD" stroke-width="2"/>
+  <text x="920" y="284" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5"><tspan fill="#55DFBD">✓ </tspan>passes</text>
+  <text x="920" y="306" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">only on yes (no, for .not)</text>
+  <rect x="904" y="324" width="328" height="56" rx="12" fill="#0D2638" stroke="#FFC56E" stroke-width="2"/>
+  <text x="920" y="352" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5"><tspan fill="#FFC56E">! </tspan>ambiguous → fails by default</text>
+  <text x="920" y="374" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">onAmbiguous: &#x27;annotate&#x27; passes and flags it</text>
+  <rect x="904" y="392" width="328" height="76" rx="12" fill="#0D2638" stroke="#FB8176" stroke-width="2"/>
+  <text x="920" y="420" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5"><tspan fill="#FB8176">✗ </tspan>unverified → fails by default</text>
+  <text x="920" y="442" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">no key, 429, timeout, missing fixture;</text>
+  <text x="920" y="461" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">onUnverified: &#x27;skip&#x27; skips with a warning</text>
+  <rect x="48" y="290" width="520" height="82" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="64" y="318" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Evidence on every assertion</text>
+  <text x="64" y="340" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">probability, confidence, source, model, latency, cost</text>
+  <text x="64" y="359" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">→ jev-assertion attachment, annotation, reporter table</text>
+  <path d="M 298,160 L 338,160" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 580,160 L 620,160" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 862,160 L 902,160" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 1068,220 L 1068,240 L 742,240 L 742,268" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 862,290 L 880,290 L 880,284 L 902,284" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 862,330 L 888,330 L 888,352 L 902,352" fill="none" stroke="#FFC56E" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#ag)"/>
+  <path d="M 862,370 L 896,370 L 896,430 L 902,430" fill="none" stroke="#FB8176" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#ac)"/>
+  <path d="M 622,330 L 570,330" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <text x="48" y="430" text-anchor="start" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="400" fill="#ABC0C8">Offline CI: the examples replay committed fixtures with no key and no network.</text>
+  <text x="48" y="454" text-anchor="start" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="400" fill="#ABC0C8">Last run: 10 semantic assertions, 10 passed, 0 ambiguous, 0 unverified, cost $0.</text>
+</svg>

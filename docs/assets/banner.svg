@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="playwright-jev · Semantic assertions for Playwright Test, powered by Jev. Three-valued verdicts, fail-closed when unverified, recorded once and replayed in CI.">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#55DFBD" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <clipPath id="r"><rect width="1280" height="320" rx="20"/></clipPath>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55DFBD"/></marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FB8176"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FFC56E"/></marker>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="1280" height="320" fill="#071B2B"/>
+    <rect width="1280" height="320" fill="url(#grid)"/>
+    <rect x="0" y="0" width="8" height="320" fill="#55DFBD"/>
+  </g>
+
+  <g font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+    <text x="64" y="118" font-size="54" font-weight="700" fill="#F4F7F5">playwright-jev</text>
+    <text x="66" y="164" font-size="22" fill="#F4F7F5">Semantic assertions for Playwright Test, powered</text>
+    <text x="66" y="195" font-size="22" fill="#ABC0C8">by Jev. Three-valued verdicts, fail-closed when</text>
+    <text x="66" y="226" font-size="22" fill="#ABC0C8">unverified, recorded once and replayed in CI.</text>
+    <text x="66" y="280" font-size="15" font-weight="600" fill="#55DFBD">Cristian Guerra · QA · Medellín</text>
+  </g>
+  <rect x="668" y="40" width="568" height="240" rx="16" fill="#0D2638" stroke="#214456"/>
+  <circle cx="692" cy="64" r="5" fill="#214456"/><circle cx="710" cy="64" r="5" fill="#214456"/><circle cx="728" cy="64" r="5" fill="#214456"/>
+  <text x="1216" y="69" text-anchor="end" font-family="Menlo,Consolas,monospace" font-size="12" fill="#8FA6B0">examples, JEV_MODE=replay</text>
+  <g font-family="Menlo,Consolas,monospace" font-size="13">
+    <text x="692" y="106" fill="#55DFBD">$ <tspan fill="#F4F7F5">npm run test:examples</tspan></text>
+    <text x="692" y="133" fill="#55DFBD">  5 passed (2.7s)</text>
+    <text x="692" y="160" fill="#ABC0C8">Semantic assertions (playwright-jev): 10 total, 10 passed,</text>
+    <text x="692" y="187" fill="#ABC0C8">0 failed, 0 ambiguous, 0 unverified</text>
+    <text x="692" y="214" fill="#ABC0C8">Questions by source: fixture=12 · live input tokens 0</text>
+    <text x="692" y="241" fill="#ABC0C8">· cost $0.000000 · avg live latency 0 ms</text>
+  </g>
+</svg>

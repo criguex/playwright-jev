@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>playwright-jev · how it works</title>
+<style>
+:root{--navy:#071B2B;--deep:#0D2638;--panel:#123448;--grid:#214456;--mint:#55DFBD;--gold:#FFC56E;--coral:#FB8176;--white:#F4F7F5;--muted:#ABC0C8;--muted2:#8FA6B0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:960px;height:540px;overflow:hidden;background:var(--navy)}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--white);position:relative;background-image:linear-gradient(rgba(85,223,189,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(85,223,189,.06) 1px,transparent 1px);background-size:40px 40px}
+.bar{position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--mint)}
+h1{position:absolute;left:28px;top:18px;font-size:24px;font-weight:700}
+.sub{position:absolute;left:28px;top:50px;font-size:14px;color:var(--muted)}
+.sign{position:absolute;right:28px;top:26px;font-size:12px;font-weight:600;color:var(--mint)}
+svg.edges{position:absolute;left:0;top:0}
+.node{position:absolute;background:var(--deep);border:1.5px solid var(--grid);border-radius:10px;padding:8px 11px;opacity:.32}
+.node b{display:block;font-size:13.5px;font-weight:700;color:var(--white);white-space:nowrap}
+.node span{display:block;font-size:11.5px;line-height:1.35;color:var(--muted);margin-top:3px;white-space:nowrap}
+.node.on{opacity:1}
+.node.on.pass{border-color:var(--mint)}.node.on.fail{border-color:var(--coral)}.node.on.warn{border-color:var(--gold)}.node.on.plain{border-color:#3a6276}
+.node.hot{box-shadow:0 0 0 3px rgba(85,223,189,.25)}
+.node.hot.fail{box-shadow:0 0 0 3px rgba(251,129,118,.28)}.node.hot.warn{box-shadow:0 0 0 3px rgba(255,197,110,.28)}
+.sym-pass{color:var(--mint)}.sym-fail{color:var(--coral)}.sym-warn{color:var(--gold)}
+.caption{position:absolute;left:28px;right:28px;top:304px;font-size:16px;font-weight:600;color:var(--white);display:flex;gap:10px;align-items:center}
+.caption i{font-style:normal;font-size:12px;font-weight:700;color:var(--navy);background:var(--mint);border-radius:999px;padding:2px 9px}
+.term{position:absolute;left:24px;right:24px;top:338px;bottom:22px;background:var(--deep);border:1px solid var(--grid);border-radius:12px;padding:30px 16px 10px;font:12.5px/18px Menlo,Consolas,monospace;color:var(--muted);overflow:hidden}
+.term .dots{position:absolute;left:14px;top:11px;display:flex;gap:6px}.term .dots u{display:block;width:9px;height:9px;border-radius:50%;background:var(--grid)}
+.term .tt{position:absolute;right:14px;top:8px;font-size:11px;color:var(--muted2)}
+.term p{white-space:pre;overflow:hidden;text-overflow:clip}
+.term .cmd{color:var(--white)}.term .cmd:before{content:"$ ";color:var(--mint)}
+.term .pass{color:var(--mint)}.term .fail{color:var(--coral)}.term .warn{color:var(--gold)}.term .hi{color:var(--white)}
+.cursor{display:inline-block;width:7px;height:13px;background:var(--mint);vertical-align:-2px}
+.progress{position:absolute;left:24px;bottom:10px;height:3px;background:var(--mint);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="bar"></div>
+<h1 id="title"></h1><div class="sub" id="subtitle"></div><div class="sign">Cristian Guerra · QA · Medellín</div>
+<svg class="edges" width="960" height="540" id="edges"></svg>
+<div id="nodes"></div>
+<div class="caption" id="caption"></div>
+<div class="term" id="term"><div class="dots"><u></u><u></u><u></u></div><div class="tt" id="tt"></div><div id="lines"></div></div>
+<div class="progress" id="progress"></div>
+<script>
+const SCENE = {
+ "title": "playwright-jev",
+ "subtitle": "A real example from this repo, replayed offline the way CI runs it",
+ "termTitle": "npm run test:examples · JEV_MODE=replay",
+ "duration": 14.5,
+ "capY": 304,
+ "termY": 338,
+ "termRows": 7,
+ "nodes": [
+  {
+   "x": 28,
+   "y": 84,
+   "w": 300,
+   "h": 104,
+   "title": "checkout.spec.ts",
+   "lines": [
+    "toMean('the payment was confirmed')",
+    "toMean('…will receive a receipt by e-mail')",
+    "not.toMean('the payment failed')",
+    "toChoose({ success, error, pending }, 'success')"
+   ],
+   "on": 0.2
+  },
+  {
+   "x": 360,
+   "y": 84,
+   "w": 190,
+   "h": 56,
+   "title": "alert innerText",
+   "lines": [
+    "web-first retry"
+   ],
+   "on": 1.9
+  },
+  {
+   "x": 360,
+   "y": 160,
+   "w": 190,
+   "h": 64,
+   "title": "4 questions, 4 keys",
+   "lines": [
+    "sha256(model, redacted",
+    "state, question)"
+   ],
+   "on": 3.1
+  },
+  {
+   "x": 580,
+   "y": 84,
+   "w": 170,
+   "h": 80,
+   "title": "Fixture hit",
+   "lines": [
+    ".jev/fixtures",
+    "replay: no network",
+    "live: 1 batched call"
+   ],
+   "on": 5.4
+  },
+  {
+   "x": 580,
+   "y": 184,
+   "w": 170,
+   "h": 64,
+   "title": "No fixture",
+   "lines": [
+    "unverified: fails",
+    "by default"
+   ],
+   "kind": "fail",
+   "sym": "fail",
+   "on": 10.8
+  },
+  {
+   "x": 770,
+   "y": 84,
+   "w": 166,
+   "h": 44,
+   "title": "toMean 0.98",
+   "lines": [
+    "payment was confirmed"
+   ],
+   "kind": "pass",
+   "sym": "pass",
+   "on": 6.6
+  },
+  {
+   "x": 770,
+   "y": 136,
+   "w": 166,
+   "h": 44,
+   "title": "toMean 0.96",
+   "lines": [
+    "receipt by e-mail"
+   ],
+   "kind": "pass",
+   "sym": "pass",
+   "on": 6.9
+  },
+  {
+   "x": 770,
+   "y": 188,
+   "w": 166,
+   "h": 44,
+   "title": "not.toMean 0.01",
+   "lines": [
+    "payment failed"
+   ],
+   "kind": "pass",
+   "sym": "pass",
+   "on": 7.2
+  },
+  {
+   "x": 770,
+   "y": 240,
+   "w": 166,
+   "h": 44,
+   "title": "toChoose success",
+   "lines": [
+    "confidence 1.00"
+   ],
+   "kind": "pass",
+   "sym": "pass",
+   "on": 7.5
+  }
+ ],
+ "edges": [
+  {
+   "pts": [
+    [
+     328,
+     112
+    ],
+    [
+     358,
+     112
+    ]
+   ],
+   "on": 1.6,
+   "dur": 0.3
+  },
+  {
+   "pts": [
+    [
+     455,
+     140
+    ],
+    [
+     455,
+     158
+    ]
+   ],
+   "on": 2.8,
+   "dur": 0.3
+  },
+  {
+   "pts": [
+    [
+     550,
+     188
+    ],
+    [
+     565,
+     188
+    ],
+    [
+     565,
+     120
+    ],
+    [
+     578,
+     120
+    ]
+   ],
+   "on": 4.8,
+   "dur": 0.5
+  },
+  {
+   "pts": [
+    [
+     750,
+     120
+    ],
+    [
+     760,
+     120
+    ],
+    [
+     760,
+     106
+    ],
+    [
+     768,
+     106
+    ]
+   ],
+   "on": 6.3,
+   "dur": 0.3
+  },
+  {
+   "pts": [
+    [
+     750,
+     120
+    ],
+    [
+     760,
+     120
+    ],
+    [
+     760,
+     158
+    ],
+    [
+     768,
+     158
+    ]
+   ],
+   "on": 6.6,
+   "dur": 0.3
+  },
+  {
+   "pts": [
+    [
+     750,
+     120
+    ],
+    [
+     760,
+     120
+    ],
+    [
+     760,
+     210
+    ],
+    [
+     768,
+     210
+    ]
+   ],
+   "on": 6.9,
+   "dur": 0.3
+  },
+  {
+   "pts": [
+    [
+     750,
+     120
+    ],
+    [
+     760,
+     120
+    ],
+    [
+     760,
+     262
+    ],
+    [
+     768,
+     262
+    ]
+   ],
+   "on": 7.2,
+   "dur": 0.3
+  },
+  {
+   "pts": [
+    [
+     550,
+     206
+    ],
+    [
+     565,
+     206
+    ],
+    [
+     565,
+     216
+    ],
+    [
+     578,
+     216
+    ]
+   ],
+   "on": 10.5,
+   "dur": 0.3,
+   "kind": "fail"
+  }
+ ],
+ "captions": [
+  {
+   "t": 0,
+   "text": "A checkout test asserts what the alert means, not its exact words"
+  },
+  {
+   "t": 1.6,
+   "text": "The locator's text is read with Playwright's web-first retry"
+  },
+  {
+   "t": 2.8,
+   "text": "Each question is keyed by sha256 of model, redacted state and question"
+  },
+  {
+   "t": 4.8,
+   "text": "CI replays committed fixtures; live mode would batch all 4 in one call"
+  },
+  {
+   "t": 6.3,
+   "text": "Only a clear answer passes: 0.98, 0.96, not 0.01, success at 1.00"
+  },
+  {
+   "t": 8.5,
+   "text": "The reporter lists every semantic assertion with its evidence"
+  },
+  {
+   "t": 10.5,
+   "text": "Copy changed? New key, no fixture: unverified, so the test fails"
+  }
+ ],
+ "term": [
+  {
+   "t": 0.3,
+   "c": "cmd",
+   "text": "npm run test:examples"
+  },
+  {
+   "t": 1.0,
+   "c": "out",
+   "text": "Running 5 tests using 2 workers"
+  },
+  {
+   "t": 6.6,
+   "c": "pass",
+   "text": "  ✓  2 [chromium] › examples/content.spec.ts:6:1 › the help article explains the steps clearly (309ms)"
+  },
+  {
+   "t": 6.8,
+   "c": "pass",
+   "text": "  ✓  3 [chromium] › examples/content.spec.ts:21:1 › an API payload means what the contract says (2ms)"
+  },
+  {
+   "t": 7.4,
+   "c": "pass",
+   "text": "  ✓  1 [chromium] › examples/checkout.spec.ts:7:3 › checkout › a successful payment is communicated as a confirmation (1.2s)"
+  },
+  {
+   "t": 7.7,
+   "c": "pass",
+   "text": "  ✓  4 [chromium] › examples/checkout.spec.ts:28:3 › checkout › a declined card tells the user what to do next (954ms)"
+  },
+  {
+   "t": 7.9,
+   "c": "pass",
+   "text": "  ✓  5 [chromium] › examples/checkout.spec.ts:42:3 › checkout › the order summary covers what a buyer needs (83ms)"
+  },
+  {
+   "t": 8.5,
+   "c": "hi",
+   "text": "  5 passed (2.7s)"
+  },
+  {
+   "t": 8.9,
+   "c": "hi",
+   "text": "  Semantic assertions (playwright-jev): 10 total, 10 passed, 0 failed, 0 ambiguous, 0 unverified"
+  },
+  {
+   "t": 9.1,
+   "c": "out",
+   "text": "  STATUS     MATCHER         P/SCORE       CONF  SOURCE   TEST · EXPECTATION"
+  },
+  {
+   "t": 9.3,
+   "c": "out",
+   "text": "  passed     toMean          0.98          -     fixture  checkout › a successful payment is communicated as a confirmation · \"the payment was conf…"
+  },
+  {
+   "t": 9.5,
+   "c": "out",
+   "text": "  passed     toMean          0.96          -     fixture  checkout › a successful payment is communicated as a confirmation · \"the customer will re…"
+  },
+  {
+   "t": 9.7,
+   "c": "out",
+   "text": "  passed     not.toMean      0.01          -     fixture  checkout › a successful payment is communicated as a confirmation · \"the payment failed\""
+  },
+  {
+   "t": 9.9,
+   "c": "out",
+   "text": "  passed     toChoose        success       1.00  fixture  checkout › a successful payment is communicated as a confirmation · \"success\""
+  },
+  {
+   "t": 10.3,
+   "c": "out",
+   "text": "  Questions by source: fixture=12 · live input tokens 0 · cost $0.000000 · avg live latency 0 ms"
+  }
+ ]
+};
+const NS = 'http://www.w3.org/2000/svg';
+const COL = { mint: '#55DFBD', fail: '#FB8176', warn: '#FFC56E', pass: '#55DFBD' };
+const SYM = { pass: '✓', fail: '✗', warn: '!' };
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+document.getElementById('title').textContent = SCENE.title;
+document.getElementById('subtitle').textContent = SCENE.subtitle;
+document.getElementById('tt').textContent = SCENE.termTitle;
+const nodesEl = document.getElementById('nodes');
+const nodes = SCENE.nodes.map((n) => {
+  const el = document.createElement('div');
+  el.className = 'node ' + (n.kind || 'plain');
+  Object.assign(el.style, { left: n.x + 'px', top: n.y + 'px', width: n.w + 'px', height: n.h + 'px' });
+  const sym = n.sym ? `<em class="sym-${n.sym}" style="font-style:normal">${SYM[n.sym]} </em>` : '';
+  el.innerHTML = `<b>${sym}${esc(n.title)}</b>` + (n.lines || []).map((l) => `<span>${esc(l)}</span>`).join('');
+  nodesEl.appendChild(el);
+  return { ...n, el };
+});
+const svg = document.getElementById('edges');
+const defs = document.createElementNS(NS, 'defs');
+for (const [k, c] of Object.entries({ m: '#55DFBD', f: '#FB8176', w: '#FFC56E', g: '#214456' })) {
+  const mk = document.createElementNS(NS, 'marker');
+  for (const [a, v] of Object.entries({ id: 'a' + k, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' })) mk.setAttribute(a, v);
+  const p = document.createElementNS(NS, 'path'); p.setAttribute('d', 'M0,0 L10,5 L0,10 z'); p.setAttribute('fill', c); mk.appendChild(p); defs.appendChild(mk);
+}
+svg.appendChild(defs);
+const edges = SCENE.edges.map((e) => {
+  const d = 'M ' + e.pts.map((p) => p.join(',')).join(' L ');
+  const base = document.createElementNS(NS, 'path');
+  base.setAttribute('d', d); base.setAttribute('fill', 'none'); base.setAttribute('stroke', '#214456'); base.setAttribute('stroke-width', '2'); base.setAttribute('marker-end', 'url(#ag)');
+  const kind = e.kind || 'mint';
+  const live = document.createElementNS(NS, 'path');
+  live.setAttribute('d', d); live.setAttribute('fill', 'none'); live.setAttribute('stroke', COL[kind]); live.setAttribute('stroke-width', '2.4'); live.setAttribute('stroke-linejoin', 'round');
+  const dot = document.createElementNS(NS, 'circle'); dot.setAttribute('r', 5); dot.setAttribute('fill', COL[kind]);
+  svg.append(base, live, dot);
+  let label = null;
+  if (e.label) {
+    label = document.createElementNS(NS, 'g');
+    const tw = e.label.length * 6.4 + 12;
+    const r = document.createElementNS(NS, 'rect');
+    for (const [a, v] of Object.entries({ x: e.labelAt[0] - tw / 2, y: e.labelAt[1] - 12, width: tw, height: 17, rx: 5, fill: '#071B2B', stroke: '#214456' })) r.setAttribute(a, v);
+    const t = document.createElementNS(NS, 'text');
+    for (const [a, v] of Object.entries({ x: e.labelAt[0], y: e.labelAt[1], 'text-anchor': 'middle', 'font-size': 11.5, fill: kind === 'mint' ? '#F4F7F5' : COL[kind] })) t.setAttribute(a, v);
+    t.textContent = e.label; label.append(r, t); svg.appendChild(label);
+  }
+  const len = live.getTotalLength();
+  live.setAttribute('stroke-dasharray', len);
+  return { ...e, base, live, dot, label, len, kind };
+});
+const linesEl = document.getElementById('lines');
+const cap = document.getElementById('caption');
+function render(t) {
+  for (const n of nodes) {
+    const on = t >= n.on;
+    n.el.classList.toggle('on', on);
+    n.el.classList.toggle('hot', on && t < n.on + 0.9);
+  }
+  for (const e of edges) {
+    const p = Math.max(0, Math.min(1, (t - e.on) / (e.dur || 0.6)));
+    e.live.setAttribute('stroke-dashoffset', e.len * (1 - p));
+    e.live.setAttribute('marker-end', p >= 1 ? `url(#a${e.kind === 'fail' ? 'f' : e.kind === 'warn' ? 'w' : 'm'})` : '');
+    e.live.style.opacity = p > 0 ? 1 : 0;
+    const moving = p > 0 && p < 1;
+    e.dot.style.opacity = moving ? 1 : 0;
+    if (moving) { const pt = e.live.getPointAtLength(e.len * p); e.dot.setAttribute('cx', pt.x); e.dot.setAttribute('cy', pt.y); }
+    if (e.label) e.label.style.opacity = p >= 1 ? 1 : 0;
+  }
+  let c = null;
+  SCENE.captions.forEach((k, i) => { if (t >= k.t) c = { ...k, i }; });
+  cap.innerHTML = c ? `<i>${c.i + 1}/${SCENE.captions.length}</i><span>${esc(c.text)}</span>` : '';
+  cap.style.opacity = c ? Math.min(1, (t - c.t) / 0.3) : 0;
+  const shown = SCENE.term.filter((l) => t >= l.t);
+  const visible = shown.slice(-SCENE.termRows);
+  linesEl.innerHTML = visible.map((l, idx) => {
+    let text = l.text;
+    let cursor = '';
+    if (l.c === 'cmd') {
+      const k = Math.floor(Math.min(1, (t - l.t) / 0.7) * text.length);
+      if (k < text.length || idx === visible.length - 1) cursor = '<span class="cursor"></span>';
+      text = text.slice(0, k);
+    }
+    return `<p class="${l.c}">${esc(text)}${cursor}</p>`;
+  }).join('');
+  document.getElementById('progress').style.width = (912 * Math.min(1, t / SCENE.duration)) + 'px';
+}
+const q = new URLSearchParams(location.search);
+render(q.has('t') ? parseFloat(q.get('t')) : SCENE.duration);
+</script>
+</body>
+</html>
