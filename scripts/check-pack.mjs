@@ -8,7 +8,9 @@ const work = mkdtempSync(join(tmpdir(), 'pwjev-pack-'));
 const run = (cmd, args, cwd) =>
   execFileSync(cmd, args, { cwd, stdio: ['ignore', 'pipe', 'inherit'], encoding: 'utf8' });
 
-const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', work], root));
+const packed = JSON.parse(
+  run('npm', ['pack', '--json', '--ignore-scripts', '--pack-destination', work], root),
+);
 const files = packed[0].files.map((f) => f.path);
 const required = [
   'dist/index.js',

@@ -90,8 +90,11 @@ La animación sigue el ejemplo de checkout de [`examples/checkout.spec.ts`](exam
 
 ## Inicio rápido
 
+El paquete todavía no está publicado en npm (`npm i -D playwright-jev` da 404).
+Instálalo desde GitHub; el script `prepare` construye `dist/` durante la instalación.
+
 ```sh
-npm i -D playwright-jev
+npm i -D github:criguex/playwright-jev
 export TYPESAFE_API_KEY=...        # o AI_GATEWAY_API_KEY=... para Vercel AI Gateway
 ```
 

@@ -88,8 +88,11 @@ The animation follows the checkout example in [`examples/checkout.spec.ts`](exam
 
 ## Quick start
 
+The package is not published on npm yet (`npm i -D playwright-jev` returns 404).
+Install it from GitHub; the `prepare` script builds `dist/` during the install.
+
 ```sh
-npm i -D playwright-jev
+npm i -D github:criguex/playwright-jev
 export TYPESAFE_API_KEY=...        # or AI_GATEWAY_API_KEY=... for Vercel AI Gateway
 ```
 

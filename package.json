@@ -71,6 +71,7 @@
     "docs": "typedoc",
     "check:pack": "node scripts/check-pack.mjs",
     "verify": "npm run typecheck && npm run lint && npm run test:coverage && npm run build && npm run test:integration && npm run test:examples && npm run docs && npm run check:pack",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run verify"
   },
   "peerDependencies": {

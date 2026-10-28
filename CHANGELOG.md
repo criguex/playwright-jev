@@ -8,6 +8,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [0.1.0] - 2026-09-26
 
+Not tagged and not published on npm.
+
 ### Added
 
 - Semantic matchers for Playwright Test: `toMean`, `toMeanAll`, `toMeanAny`,
@@ -25,6 +27,3 @@ All notable changes to this project are documented here. The format follows
 - Cost and latency tracking; evidence attached to every test as JSON and annotations.
 - `playwright-jev/reporter` with a console table and JSON/Markdown output.
 - Low-level `createJevClient` and `decide` APIs.
-
-[Unreleased]: https://github.com/criguex/playwright-jev/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/criguex/playwright-jev/releases/tag/v0.1.0
