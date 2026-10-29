@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { FullResult, TestCase, TestResult } from '@playwright/test/reporter';
@@ -117,6 +117,20 @@ describe('JevReporter', () => {
     expect(printed).toContain('2 total, 1 passed, 1 failed');
     expect(printed).toContain('0.97');
     expect(printed).toContain('error');
+  });
+
+  it('resolves relative report paths against the config file directory', async () => {
+    const dir = tempDir();
+    const reporter = new JevReporter({
+      outputFile: '../out/jev-report.json',
+      markdownFile: '../out/jev-report.md',
+      print: false,
+    });
+    reporter.onBegin({ rootDir: join(dir, 'tests/specs'), configFile: join(dir, 'tests/pw.ts') });
+    reporter.onTestEnd(testCase(), testResult([record()]));
+    await reporter.onEnd({ status: 'passed' } as FullResult);
+    expect(existsSync(join(dir, 'out/jev-report.json'))).toBe(true);
+    expect(existsSync(join(dir, 'out/jev-report.md'))).toBe(true);
   });
 
   it('marks the run failed for tolerated ambiguity or skipped unverified when asked', async () => {

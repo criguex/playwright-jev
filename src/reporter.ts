@@ -1,13 +1,13 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, relative } from 'node:path';
+import { dirname, relative, resolve } from 'node:path';
 import type { FullResult, Reporter, TestCase, TestResult } from '@playwright/test/reporter';
 import { ATTACHMENT_NAME, type AssertionRecord, type QuestionEvidence } from './evidence.js';
 
 /** Options for the playwright-jev reporter. */
 export interface JevReporterOptions {
-  /** JSON report path, or `false` to disable. Default `jev-report.json`. */
+  /** JSON report path, relative to the config file directory, or `false` to disable. Default `jev-report.json`. */
   outputFile?: string | false;
-  /** Markdown report path, or `false` to disable. Default `false`. */
+  /** Markdown report path, relative to the config file directory, or `false` to disable. Default `false`. */
   markdownFile?: string | false;
   /** Print the summary table to stdout. Default `true`. */
   print?: boolean;
@@ -174,6 +174,7 @@ export default class JevReporter implements Reporter {
   readonly assertions: ReportedAssertion[] = [];
   private readonly options: Required<JevReporterOptions>;
   private rootDir = process.cwd();
+  private outputDir = process.cwd();
 
   constructor(options: JevReporterOptions = {}) {
     this.options = {
@@ -185,8 +186,9 @@ export default class JevReporter implements Reporter {
     };
   }
 
-  onBegin(config: { rootDir: string }): void {
+  onBegin(config: { rootDir: string; configFile?: string | undefined }): void {
     this.rootDir = config.rootDir;
+    this.outputDir = config.configFile ? dirname(config.configFile) : config.rootDir;
   }
 
   printsToStdio(): boolean {
@@ -212,16 +214,18 @@ export default class JevReporter implements Reporter {
     const { outputFile, markdownFile, print, failOnAmbiguous, failOnUnverified } = this.options;
     const summary = summarizeRun(this.assertions);
     if (outputFile) {
-      mkdirSync(dirname(outputFile), { recursive: true });
+      const path = resolve(this.outputDir, outputFile);
+      mkdirSync(dirname(path), { recursive: true });
       writeFileSync(
-        outputFile,
+        path,
         `${JSON.stringify({ summary, assertions: this.assertions }, null, 2)}\n`,
         'utf8',
       );
     }
     if (markdownFile) {
-      mkdirSync(dirname(markdownFile), { recursive: true });
-      writeFileSync(markdownFile, renderMarkdown(this.assertions), 'utf8');
+      const path = resolve(this.outputDir, markdownFile);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, renderMarkdown(this.assertions), 'utf8');
     }
     if (print) process.stdout.write(`${renderTable(this.assertions)}\n`);
     const tolerated = this.assertions.filter(
