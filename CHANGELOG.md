@@ -6,6 +6,20 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- The reporter resolves relative `outputFile` and `markdownFile` paths from the
+  Playwright config file directory instead of the process cwd, so the reports land
+  where the config says.
+- The integration suite counts mock Jev requests per test, so it passes with any number
+  of workers (it failed every run with 5).
+
+### Changed
+
+- Tests are grouped under `test/`: `test/unit` (Vitest), `test/integration`
+  (Playwright, formerly `tests/`), `test/live` and `test/support`.
+- `GOAL.md` and `PLAN.md` moved to `docs/`; the READMEs gained a "Project layout" section.
+
 ## [0.1.0] - 2026-09-26
 
 Not tagged and not published on npm.

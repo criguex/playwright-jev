@@ -25,8 +25,8 @@ Individually:
 | --- | --- |
 | `npm run typecheck` | `tsc --noEmit` with strict settings |
 | `npm run lint` | ESLint + Prettier check |
-| `npm run test:coverage` | Vitest unit tests with coverage thresholds |
-| `npm run test:integration` | Playwright against `tests/site` and the mock Jev server |
+| `npm run test:coverage` | Vitest unit tests in `test/unit` with coverage thresholds |
+| `npm run test:integration` | Playwright suite in `test/integration` against its local page and the mock Jev server |
 | `npm run test:examples` | Examples in replay mode (offline) |
 | `npm run test:live` | Optional smoke test against the real API (needs a key in `.env`) |
 

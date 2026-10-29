@@ -2,7 +2,7 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test, type Page } from '@playwright/test';
-import { configureJev, resetJevConfig, resetJevState } from '../../src/index.js';
+import { configureJev, resetJevConfig, resetJevState } from '../../../src/index.js';
 
 export const checkoutUrl = new URL('../site/checkout.html', import.meta.url).href;
 

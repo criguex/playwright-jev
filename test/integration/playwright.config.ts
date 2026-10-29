@@ -6,14 +6,14 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
-  outputDir: '../test-results/integration',
+  outputDir: '../../test-results/integration',
   reporter: [
     ['list'],
     [
-      '../src/reporter.ts',
+      '../../src/reporter.ts',
       {
-        outputFile: '../test-results/integration/jev-report.json',
-        markdownFile: '../test-results/integration/jev-report.md',
+        outputFile: '../../test-results/integration/jev-report.json',
+        markdownFile: '../../test-results/integration/jev-report.md',
       },
     ],
   ],

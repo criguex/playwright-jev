@@ -261,6 +261,8 @@ Questions by source: fixture=12 · live input tokens 0 · cost $0.000000 · avg 
 
 Opciones: `outputFile` (`jev-report.json`), `markdownFile`, `print`, `failOnAmbiguous`,
 `failOnUnverified` (convierten la ambigüedad tolerada o los saltos en una corrida fallida).
+Las rutas relativas de `outputFile` y `markdownFile` se resuelven desde la carpeta del
+archivo de configuración de Playwright.
 Cada aserción es además un adjunto JSON `jev-assertion` y una anotación (`jev`,
 `jev:failed`, `jev:ambiguous`, `jev:unverified`) visible en el reporte HTML.
 
@@ -303,10 +305,26 @@ Cada aserción es además un adjunto JSON `jev-assertion` y una anotación (`jev
 | Explicaciones | Ninguna: recibes números y la evidencia adjunta | Puede explicar (y equivocarse al hacerlo) |
 | Ideal para | Muchas verificaciones acotadas de sí/no, elegir una y rúbrica | Revisión abierta, razonamiento largo |
 
+## Estructura del proyecto
+
+| Ruta | Qué contiene |
+| --- | --- |
+| `src/` | La librería: matchers, receptores, motor, cliente, almacén y reporter |
+| `test/unit/` | Pruebas unitarias con Vitest contra un servidor Jev simulado local (`npm test`) |
+| `test/integration/` | Suite de Playwright contra una página de checkout local y el simulador (`npm run test:integration`) |
+| `test/live/` | Prueba de humo opcional contra la API real de Jev, necesita llave (`npm run test:live`) |
+| `test/support/` | Servidor Jev simulado y utilidades que comparten las suites unitaria y de integración |
+| `examples/` | Specs de ejemplo y sus fixtures versionados, reproducidos sin red (`npm run test:examples`) |
+| `scripts/` | `check-pack.mjs`: empaqueta el tarball y lo carga como ESM y CJS |
+| `docs/` | ADRs, plan, definición de terminado, imágenes del README y fuentes de las animaciones |
+| `.github/workflows/` | CI en cada push y el workflow manual de publicación |
+
+Generado e ignorado: `dist/`, `coverage/`, `test-results/`, `docs/api/`.
+
 ## Documentos del proyecto
 
-- [PLAN.md](PLAN.md): alcance, arquitectura y fases
-- [GOAL.md](GOAL.md): definición de terminado verificable por máquina
+- [docs/PLAN.md](docs/PLAN.md): alcance, arquitectura y fases
+- [docs/GOAL.md](docs/GOAL.md): definición de terminado verificable por máquina
 - [docs/adr](https://github.com/criguex/playwright-jev/tree/main/docs/adr): decisiones de diseño
 - [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md)
 

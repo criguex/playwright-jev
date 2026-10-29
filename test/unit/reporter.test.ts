@@ -2,14 +2,14 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { FullResult, TestCase, TestResult } from '@playwright/test/reporter';
-import { ATTACHMENT_NAME, type AssertionRecord } from '../src/evidence.js';
+import { ATTACHMENT_NAME, type AssertionRecord } from '../../src/evidence.js';
 import JevReporter, {
   renderMarkdown,
   renderTable,
   summarizeRun,
   type ReportedAssertion,
-} from '../src/reporter.js';
-import { tempDir } from './support/env.js';
+} from '../../src/reporter.js';
+import { tempDir } from '../support/env.js';
 
 const record = (over: Partial<AssertionRecord> = {}): AssertionRecord => ({
   matcher: 'toMean',

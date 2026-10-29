@@ -258,7 +258,9 @@ Questions by source: fixture=12 · live input tokens 0 · cost $0.000000 · avg 
 ```
 
 Options: `outputFile` (`jev-report.json`), `markdownFile`, `print`, `failOnAmbiguous`,
-`failOnUnverified` (turn tolerated ambiguity or skips into a failed run). Each assertion
+`failOnUnverified` (turn tolerated ambiguity or skips into a failed run). Relative
+`outputFile` and `markdownFile` paths are resolved from the directory of the Playwright
+config file. Each assertion
 is also a `jev-assertion` JSON attachment and an annotation (`jev`, `jev:failed`,
 `jev:ambiguous`, `jev:unverified`) visible in the HTML report.
 
@@ -296,10 +298,26 @@ is also a `jev-assertion` JSON attachment and an annotation (`jev`, `jev:failed`
 | Explanations | None: you get numbers and the evidence attached | Can explain (and be wrong about it) |
 | Best for | Many narrow yes/no, pick-one and rubric checks | Open-ended review, long reasoning |
 
+## Project layout
+
+| Path | What it holds |
+| --- | --- |
+| `src/` | The library: matchers, receivers, engine, client, store and reporter |
+| `test/unit/` | Vitest unit tests against a local mock Jev server (`npm test`) |
+| `test/integration/` | Playwright suite against a local checkout page and the mock (`npm run test:integration`) |
+| `test/live/` | Optional smoke test against the real Jev API, needs a key (`npm run test:live`) |
+| `test/support/` | Mock Jev server and helpers shared by the unit and integration suites |
+| `examples/` | Example specs and their committed fixtures, replayed offline (`npm run test:examples`) |
+| `scripts/` | `check-pack.mjs`: packs the tarball and loads it as ESM and CJS |
+| `docs/` | ADRs, plan, definition of done, README images and animation sources |
+| `.github/workflows/` | CI on every push and the manual release workflow |
+
+Generated and ignored: `dist/`, `coverage/`, `test-results/`, `docs/api/`.
+
 ## Project docs
 
-- [PLAN.md](PLAN.md): scope, architecture and phases
-- [GOAL.md](GOAL.md): machine-checkable definition of done
+- [docs/PLAN.md](docs/PLAN.md): scope, architecture and phases
+- [docs/GOAL.md](docs/GOAL.md): machine-checkable definition of done
 - [docs/adr](https://github.com/criguex/playwright-jev/tree/main/docs/adr): design decisions
 - [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md)
 

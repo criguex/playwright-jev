@@ -64,7 +64,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:integration": "playwright test -c tests/playwright.config.ts",
+    "test:integration": "playwright test -c test/integration/playwright.config.ts",
     "test:examples": "JEV_MODE=replay playwright test -c examples/playwright.config.ts",
     "test:live": "JEV_LIVE=1 vitest run test/live --coverage.enabled=false",
     "record:examples": "JEV_MODE=record playwright test -c examples/playwright.config.ts",

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { expect } from '../../src/index.js';
+import { expect } from '../../../src/index.js';
 import { isolate, openCheckout, requestsContaining } from './helpers.js';
 
 test.beforeEach(isolate);

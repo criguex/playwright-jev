@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { configureJev } from '../src/config.js';
-import { resetJevState } from '../src/engine.js';
-import { setTestInfoProvider, summarize, type AssertionRecord } from '../src/evidence.js';
+import { configureJev } from '../../src/config.js';
+import { resetJevState } from '../../src/engine.js';
+import { setTestInfoProvider, summarize, type AssertionRecord } from '../../src/evidence.js';
 import {
   toBeScored,
   toChoose,
@@ -9,10 +9,10 @@ import {
   toMeanAll,
   toMeanAny,
   type MatcherContext,
-} from '../src/matchers.js';
-import { redactors } from '../src/redact.js';
-import { cleanEnv, fakeTestInfo, tempDir, useMock, type FakeTestInfo } from './support/env.js';
-import { startMockJev, type MockJev } from './support/mock-jev.js';
+} from '../../src/matchers.js';
+import { redactors } from '../../src/redact.js';
+import { cleanEnv, fakeTestInfo, tempDir, useMock, type FakeTestInfo } from '../support/env.js';
+import { startMockJev, type MockJev } from '../support/mock-jev.js';
 
 let mock: MockJev;
 let info: FakeTestInfo;

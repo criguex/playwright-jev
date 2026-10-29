@@ -7,10 +7,10 @@ import {
   JevError,
   normalizeAnswer,
   selectTransport,
-} from '../src/client.js';
-import { claimQuestion } from '../src/questions.js';
-import { startMockJev, type MockJev } from './support/mock-jev.js';
-import { cleanEnv } from './support/env.js';
+} from '../../src/client.js';
+import { claimQuestion } from '../../src/questions.js';
+import { startMockJev, type MockJev } from '../support/mock-jev.js';
+import { cleanEnv } from '../support/env.js';
 
 let mock: MockJev;
 beforeAll(async () => {

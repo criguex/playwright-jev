@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { configureJev, resolveConfig } from '../src/config.js';
-import { cleanEnv } from './support/env.js';
+import { configureJev, resolveConfig } from '../../src/config.js';
+import { cleanEnv } from '../support/env.js';
 
 beforeEach(cleanEnv);
 

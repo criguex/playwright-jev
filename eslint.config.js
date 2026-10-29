@@ -15,7 +15,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['scripts/**', 'test/**', 'tests/**', 'examples/**'],
+    files: ['scripts/**', 'test/**', 'examples/**'],
     languageOptions: { globals: { process: 'readonly', console: 'readonly' } },
     rules: {
       'no-console': 'off',

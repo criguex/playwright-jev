@@ -23,9 +23,7 @@ const required = [
   'package.json',
 ];
 const missing = required.filter((f) => !files.includes(f));
-const forbidden = files.filter((f) =>
-  /^(src|test|tests|examples|scripts)\/|^\.env|\.jev\//.test(f),
-);
+const forbidden = files.filter((f) => /^(src|test|examples|scripts)\/|^\.env|\.jev\//.test(f));
 if (missing.length || forbidden.length) {
   console.error({ missing, forbidden });
   process.exit(1);

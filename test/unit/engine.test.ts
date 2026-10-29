@@ -1,13 +1,13 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { resolveConfig } from '../src/config.js';
-import { decide, getJevStats } from '../src/engine.js';
-import { questionKey } from '../src/hash.js';
-import { claimQuestion } from '../src/questions.js';
-import { memoryCache, readFixture, writeFixture } from '../src/store.js';
-import { cleanEnv, tempDir } from './support/env.js';
-import { startMockJev, type MockJev } from './support/mock-jev.js';
+import { resolveConfig } from '../../src/config.js';
+import { decide, getJevStats } from '../../src/engine.js';
+import { questionKey } from '../../src/hash.js';
+import { claimQuestion } from '../../src/questions.js';
+import { memoryCache, readFixture, writeFixture } from '../../src/store.js';
+import { cleanEnv, tempDir } from '../support/env.js';
+import { startMockJev, type MockJev } from '../support/mock-jev.js';
 
 let mock: MockJev;
 beforeAll(async () => {

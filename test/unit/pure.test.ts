@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { canonicalJson, hashOf, questionKey } from '../src/hash.js';
-import { choiceQuestion, claimQuestion, scoreQuestion } from '../src/questions.js';
-import { applyRedaction, redactors } from '../src/redact.js';
-import { buildState, excerptOf, readableOf } from '../src/target.js';
-import { allOf, anyOf, noulTruth } from '../src/verdict.js';
+import { canonicalJson, hashOf, questionKey } from '../../src/hash.js';
+import { choiceQuestion, claimQuestion, scoreQuestion } from '../../src/questions.js';
+import { applyRedaction, redactors } from '../../src/redact.js';
+import { buildState, excerptOf, readableOf } from '../../src/target.js';
+import { allOf, anyOf, noulTruth } from '../../src/verdict.js';
 
 describe('verdict', () => {
   it('maps probabilities to yes / no / ambiguous', () => {

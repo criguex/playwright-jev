@@ -1,4 +1,4 @@
-import { startMockJev } from '../test/support/mock-jev.js';
+import { startMockJev } from '../support/mock-jev.js';
 
 export default async function globalSetup() {
   const mock = await startMockJev();

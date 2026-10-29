@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { configureJev, expect, redactors } from '../../src/index.js';
+import { configureJev, expect, redactors } from '../../../src/index.js';
 import { isolate, openCheckout, requestsContaining } from './helpers.js';
 
 test.beforeEach(isolate);
@@ -58,7 +58,7 @@ test.describe('policies', () => {
     configureJev({ mode: 'record' });
     await expect(text).toMean('order shipped');
     configureJev({ mode: 'replay', baseUrl: 'http://127.0.0.1:9/never' });
-    const { resetJevState } = await import('../../src/index.js');
+    const { resetJevState } = await import('../../../src/index.js');
     resetJevState();
     await expect(text).toMean('order shipped');
     const records = testInfo.attachments

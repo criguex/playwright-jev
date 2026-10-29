@@ -30,7 +30,7 @@ stated otherwise. The goal is met only when **all** items hold at the same commi
 | 15 | Public repo | `https://github.com/criguex/playwright-jev` exists and is public |
 | 16 | CI green | latest `CI` workflow run on `main` concluded `success` (`gh run list -R criguex/playwright-jev -w CI -L 1 --json conclusion`) |
 | 17 | Release workflow | `.github/workflows/release.yml` exists, `workflow_dispatch` only, never ran |
-| 18 | Files | `README.md` (English + Spanish section), `CHANGELOG.md`, `CONTRIBUTING.md`, `LICENSE` (MIT), `PLAN.md`, `docs/adr/0001…0005` exist |
+| 18 | Files | `README.md` (English + Spanish section), `README.es.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `LICENSE` (MIT), `docs/PLAN.md`, `docs/adr/0001…0005` exist |
 | 19 | README content | has sections: Why, Quick start, API, Record/replay, Configuration, Reporter, Honest limits, Comparison with LLM-as-judge, Español |
 | 20 | Not published | `npm view playwright-jev` returns 404 (the maintainer decides when to publish) |
 
