@@ -100,9 +100,13 @@ export async function startMockJev(): Promise<MockJev> {
     req.on('data', (chunk) => (raw += chunk));
     req.on('end', () => {
       if (req.method === 'GET') {
-        const marker = new URL(req.url ?? '/', 'http://x').searchParams.get('contains') ?? '';
-        const matching = state.requests.filter((r) =>
-          JSON.stringify(r.body.state).includes(marker),
+        const params = new URL(req.url ?? '/', 'http://x').searchParams;
+        const marker = params.get('contains') ?? '';
+        const testId = params.get('test');
+        const matching = state.requests.filter(
+          (r) =>
+            JSON.stringify(r.body.state).includes(marker) &&
+            (testId === null || r.headers['x-test-id'] === testId),
         );
         res.writeHead(200, { 'content-type': 'application/json' });
         res.end(
